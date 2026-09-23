@@ -136,6 +136,20 @@
     .chapter--right .image-set{clip-path:inset(-40px -100vw -40px -32px);}
   }
   .image-set.is-pinned .placeholder-photo.active{border-color:var(--trace);}
+  /* line effects: trace across the gap to the spine, glow and sparks while cards are absorbed */
+  @media (min-width:861px){
+    .chapter__media{position:relative;}
+    .line-fx{position:absolute;top:0;bottom:0;width:32px;pointer-events:none;}
+    .chapter--left .line-fx{right:-32px;}
+    .chapter--right .line-fx{left:-32px;}
+    .fx-trace{position:absolute;left:0;right:0;top:50%;height:1.5px;margin-top:-.75px;opacity:0;background:linear-gradient(90deg,rgba(232,147,74,0),rgba(232,147,74,.55));}
+    .chapter--right .fx-trace{background:linear-gradient(270deg,rgba(232,147,74,0),rgba(232,147,74,.55));}
+    .fx-glow{position:absolute;top:6%;bottom:6%;width:96px;opacity:0;filter:blur(8px);}
+    .chapter--left .fx-glow{right:0;background:radial-gradient(ellipse at 100% 50%,rgba(232,147,74,.75),rgba(232,147,74,0) 70%);}
+    .chapter--right .fx-glow{left:0;background:radial-gradient(ellipse at 0% 50%,rgba(232,147,74,.75),rgba(232,147,74,0) 70%);}
+    .fx-spark{position:absolute;top:50%;left:0;width:18px;height:3px;margin:-1.5px 0 0 -9px;border-radius:2px;opacity:0;background:#F5AD6E;box-shadow:0 0 10px 3px rgba(232,147,74,.7);}
+    .chapter__node{filter:drop-shadow(0 0 calc(var(--absorb,0) * 10px) rgba(245,173,110,calc(var(--absorb,0) * .95)));}
+  }
   .placeholder-photo{
     position:absolute;top:0;height:100%;width:var(--w);
     left:calc(var(--w) * var(--peek) * var(--i,0));
@@ -565,25 +579,57 @@
     var pinned = false;
     var scrollP = 0;
 
+    // Effects in the gap between the image column and the spine (kept in sync with layout()).
+    var PEEK = 0.2, GAP = 32;
+    var Wc = 0, cw = 0;
+    var fx = document.createElement('span');
+    fx.className = 'line-fx';
+    fx.setAttribute('aria-hidden', 'true');
+    var traceEl = document.createElement('i'); traceEl.className = 'fx-trace';
+    var glowEl = document.createElement('i'); glowEl.className = 'fx-glow';
+    var sparks = cards.map(function(){ var s = document.createElement('b'); s.className = 'fx-spark'; return s; });
+    fx.appendChild(traceEl); fx.appendChild(glowEl);
+    sparks.forEach(function(s){ fx.appendChild(s); });
+    setEl.parentNode.appendChild(fx);
+    function measure(){ Wc = setEl.offsetWidth; cw = cards[0].offsetWidth; dist = 1.6 * cw; }
+
     function layout(){
+      var glow = 0, presence = 0;
       cards.forEach(function(card, i){
         var k = toward === 1 ? (n - 1 - i) : i;
         var tin = clamp((state.p - (0.02 + k * 0.07)) / 0.22, 0, 1);
-        var tout = clamp((state.p - (0.62 + k * 0.07)) / 0.24, 0, 1);
+        var tout = clamp((state.p - (0.58 + k * 0.05)) / 0.22, 0, 1);
         var x = -toward * dist * Math.pow(1 - tin, 3) + toward * dist * tout * tout * tout;
-        gsap.set(card, {x:x, opacity:clamp(tin / 0.5, 0, 1)});
+        var op = clamp(tin / 0.5, 0, 1);
+        gsap.set(card, {x:x, opacity:op});
+
+        var rest = i * PEEK * cw;
+        var lead = toward === 1 ? rest + cw + x : Wc - (rest + x);
+        var trail = toward === 1 ? rest + x : Wc - (rest + cw + x);
+        var enter = clamp((lead - Wc) / 72, 0, 1);
+        var leave = 1 - clamp((trail - (Wc + GAP)) / 80, 0, 1);
+        glow = Math.max(glow, enter * leave);
+        presence = Math.max(presence, op * (1 - tout));
+
+        var along = clamp((lead - Wc) / GAP, 0, 1);
+        var sparkOn = clamp((lead - Wc) / 10, 0, 1) * (1 - clamp((trail - (Wc + GAP - 20)) / 26, 0, 1));
+        sparks[i].style.left = (toward === 1 ? along * GAP : (1 - along) * GAP) + 'px';
+        sparks[i].style.opacity = sparkOn.toFixed(3);
       });
+      traceEl.style.opacity = presence.toFixed(3);
+      glowEl.style.opacity = glow.toFixed(3);
+      ch.style.setProperty('--absorb', glow.toFixed(3));
     }
     function glideTo(target, duration){
       gsap.to(state, {p:target, duration:duration, ease:'power2.out', overwrite:true, onUpdate:layout});
     }
 
     var st = ScrollTrigger.create({
-      trigger:ch, start:'top 85%', end:'bottom 15%',
-      onRefresh:function(self){ dist = 1.6 * cards[0].offsetWidth; scrollP = self.progress; if(!pinned){ state.p = scrollP; } layout(); },
+      trigger:ch, start:'top 85%', end:'bottom 30%',
+      onRefresh:function(self){ measure(); scrollP = self.progress; if(!pinned){ state.p = scrollP; } layout(); },
       onUpdate:function(self){ scrollP = self.progress; if(!pinned){ glideTo(scrollP, 0.5); } }
     });
-    dist = 1.6 * cards[0].offsetWidth;
+    measure();
     scrollP = st.progress;
     state.p = scrollP;
     layout();
@@ -596,6 +642,8 @@
     return function(){
       gsap.killTweensOf(state);
       setEl._setConveyor(null);
+      fx.remove();
+      ch.style.removeProperty('--absorb');
       cards.forEach(function(card){ gsap.set(card, {clearProps:'x,opacity'}); });
     };
   }
