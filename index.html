@@ -504,6 +504,18 @@
     if(e.target.tagName === 'A'){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
   });
 
+  // Only one stack can be pinned (focused by a click) at a time. Scrolling away or clicking elsewhere unfocuses it.
+  var activePin = null;
+  document.addEventListener('click', function(e){
+    if(activePin && !e.target.closest('.image-set')){ activePin.release(); }
+  });
+  window.addEventListener('scroll', function(){
+    if(activePin && Math.abs(window.scrollY - activePin.y0) > window.innerHeight * 0.4){ activePin.release(); }
+  }, {passive:true});
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && activePin){ activePin.release(); }
+  });
+
   document.querySelectorAll('.image-set').forEach(function(setEl){
     var items = Array.prototype.slice.call(setEl.querySelectorAll('.placeholder-photo'));
     if(!items.length) return;
@@ -515,30 +527,40 @@
     var conveyor = null;
     var pinned = false;
     setEl.style.setProperty('--n', items.length);
-    setEl._setConveyor = function(c){
-      conveyor = c;
-      if(!c){ pinned = false; setEl.classList.remove('is-pinned'); }
-    };
     function render(){
       items.forEach(function(item, i){
         item.classList.toggle('active', i === idx);
         item.style.zIndex = 10 - Math.abs(i - idx);
       });
     }
+    function unpin(){
+      if(!pinned) return;
+      pinned = false;
+      setEl.classList.remove('is-pinned');
+      idx = isLeft ? last : 0;
+      dir = isLeft ? -1 : 1;
+      render();
+      if(conveyor){ conveyor.release(); }
+      if(activePin && activePin.set === setEl){ activePin = null; }
+    }
+    setEl._setConveyor = function(c){
+      conveyor = c;
+      if(!c){ unpin(); }
+    };
     items.forEach(function(item, i){
       item.style.setProperty('--i', i);
       item.addEventListener('click', function(){
         if(conveyor){
           if(pinned && i === idx){
-            pinned = false;
-            setEl.classList.remove('is-pinned');
-            conveyor.release();
+            unpin();
           } else {
+            if(activePin && activePin.set !== setEl){ activePin.release(); }
             idx = i;
             pinned = true;
             setEl.classList.add('is-pinned');
             render();
             conveyor.pin();
+            activePin = {set:setEl, release:unpin, y0:window.scrollY};
           }
           return;
         }
