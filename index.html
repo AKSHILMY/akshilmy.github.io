@@ -201,6 +201,47 @@
   .strip ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}
   footer{border-top:1px solid var(--line);padding:40px 0 34px;}
   .footer__bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--ink-dim);font-family:var(--mono);font-size:.8rem;}
+
+  /* reel: videos filmstrip + lightbox */
+  .reel{padding:110px 0 20px;}
+  .reel__head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+  .reel__head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);}
+  .reel__head p{margin:12px 0 0;color:var(--ink-dim);max-width:52ch;}
+  .reel__arrows{display:flex;gap:10px;}
+  .reel__arrow{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--ink-soft);color:var(--paper);font-size:1.1rem;transition:border-color .25s,color .25s;}
+  .reel__arrow:hover{border-color:var(--trace);color:var(--trace);}
+  .reel__strip{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:30px 28px 26px;margin:0 auto;max-width:var(--maxw);box-sizing:border-box;scroll-padding:0 28px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;}
+  .vcard{flex:none;scroll-snap-align:start;position:relative;height:300px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,var(--ink-soft),var(--ink-card));color:var(--paper);padding:0;text-align:left;font:inherit;display:block;transition:border-color .3s,transform .4s var(--ease),filter .3s;filter:brightness(.85);}
+  .vcard--wide{aspect-ratio:16/9;}
+  .vcard--tall{aspect-ratio:9/16;}
+  .vcard:hover,.vcard:focus-visible{border-color:var(--trace);filter:none;transform:translateY(-4px);}
+  .vcard.is-static{cursor:default;}
+  .vcard.is-static:hover{transform:none;border-color:var(--line);filter:brightness(.85);}
+  .vcard img,.vcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .vcard__shade{position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(13,18,16,.88));}
+  .vcard__play{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:rgba(13,18,16,.6);border:1px solid var(--signal);display:grid;place-items:center;transition:background .25s,transform .3s var(--ease);}
+  .vcard__play::after{content:"";margin-left:4px;border-left:14px solid var(--signal);border-top:8px solid transparent;border-bottom:8px solid transparent;}
+  .vcard:hover .vcard__play{background:var(--signal);transform:scale(1.08);}
+  .vcard:hover .vcard__play::after{border-left-color:var(--ink);}
+  .vcard.is-static .vcard__play{display:none;}
+  .vcard__meta{position:absolute;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:4px;}
+  .vcard__title{font-family:"Space Grotesk",sans-serif;font-size:1rem;}
+  .vcard__src{font-family:var(--mono);font-size:.7rem;color:var(--trace);}
+  .vcard__ph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:.76rem;color:var(--ink-dim);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:14px;}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(8,12,10,.9);display:none;align-items:center;justify-content:center;padding:24px;}
+  .lightbox.open{display:flex;}
+  .lightbox__body{width:min(960px,100%);max-height:92vh;display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .lightbox__yt{font-family:var(--mono);font-size:.82rem;color:var(--trace);border-bottom:1px solid rgba(95,168,140,.4);padding-bottom:2px;}
+  .lightbox__yt:hover{border-color:var(--trace);}
+  .lightbox__body iframe,.lightbox__body video{width:100%;aspect-ratio:16/9;max-height:80vh;border:0;border-radius:12px;background:#000;}
+  .lightbox__body.is-tall iframe,.lightbox__body.is-tall video{width:auto;height:80vh;max-width:100%;aspect-ratio:9/16;}
+  .lightbox__close{position:absolute;top:18px;right:22px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--ink-soft);color:var(--paper);font-size:1.2rem;}
+  .lightbox__close:hover{border-color:var(--signal);color:var(--signal);}
+  @media (max-width:640px){
+    .reel__strip{padding:24px 20px 20px;scroll-padding:0 20px;}
+    .reel__arrows{display:none;}
+    .vcard{height:240px;}
+  }
 </style>
 </head>
 <body>
@@ -213,6 +254,7 @@
       <li><a href="#coachello" data-nav="work">Work</a></li>
       <li><a href="#notify-learn" data-nav="projects">Projects</a></li>
       <li><a href="#toolkit" data-nav="toolkit">Toolkit</a></li>
+      <li><a href="#reel" data-nav="reel">Reel</a></li>
       <li class="nav__cta"><a href="#now" class="btn btn--signal">Connect</a></li>
     </ul>
     <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -450,6 +492,26 @@
   </section>
 </div>
 
+<section class="reel" id="reel">
+  <div class="wrap reel__head">
+    <div>
+      <p class="chapter__eyebrow">On camera</p>
+      <h2>Reel</h2>
+      <p>Demos, walkthroughs and the occasional behind-the-scenes clip.</p>
+    </div>
+    <div class="reel__arrows">
+      <button class="reel__arrow" id="reelPrev" aria-label="Previous videos">&larr;</button>
+      <button class="reel__arrow" id="reelNext" aria-label="Next videos">&rarr;</button>
+    </div>
+  </div>
+  <div class="reel__strip" id="reelStrip" tabindex="0" aria-label="Videos"></div>
+</section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close video">&times;</button>
+  <div class="lightbox__body" id="lightboxBody"></div>
+</div>
+
 <section class="now-chapter" id="now">
   <div class="wrap">
     <p class="chapter__eyebrow">The next chapter</p>
@@ -503,6 +565,95 @@
   document.getElementById('navLinks').addEventListener('click', function(e){
     if(e.target.tagName === 'A'){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
   });
+
+
+  // Reel: add a video by adding one line here.
+  // type: 'youtube' (id), 'video' (src = mp4/webm url), 'instagram' (url), 'placeholder' (no link yet).
+  // ratio: 'wide' (16:9) or 'tall' (9:16). poster is optional for youtube (auto thumbnail).
+  var videos = [
+    {type:'video', src:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4', title:'Sample clip (stand-in)', ratio:'wide'},
+    {type:'instagram', url:'https://www.instagram.com/', poster:'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=540&q=70', title:'Reel (stand-in)', ratio:'tall'},
+    {type:'youtube', id:'jNQXAC9IVRw', title:'YouTube clip (stand-in)', ratio:'wide'}
+  ];
+  (function(){
+    var strip = document.getElementById('reelStrip');
+    var box = document.getElementById('lightbox');
+    var body = document.getElementById('lightboxBody');
+    var closeBtn = document.getElementById('lightboxClose');
+    if(!strip || !box) return;
+    var lastFocus = null;
+    var previews = [];
+    var label = {youtube:'YouTube', video:'Video', instagram:'Instagram', placeholder:'Video placeholder'};
+
+    function el(tag, cls){ var n = document.createElement(tag); if(cls) n.className = cls; return n; }
+
+    videos.forEach(function(v){
+      var isStatic = v.type === 'placeholder';
+      var isLink = v.type === 'instagram';
+      var card = el(isLink ? 'a' : 'button', 'vcard vcard--' + (v.ratio === 'tall' ? 'tall' : 'wide') + (isStatic ? ' is-static' : ''));
+      if(isLink){ card.href = v.url; card.target = '_blank'; card.rel = 'noopener'; }
+      else { card.type = 'button'; }
+      if(isStatic){ card.disabled = true; }
+      var poster = v.poster || (v.type === 'youtube' && /^[\w-]{6,15}$/.test(v.id) ? 'https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg' : '');
+      if(v.type === 'video' && v.src && !reduceMotion){
+        var pv = el('video'); pv.src = v.src; pv.muted = true; pv.loop = true; pv.playsInline = true; pv.preload = 'metadata';
+        if(poster) pv.poster = poster;
+        card.appendChild(pv); previews.push(pv);
+      } else if(poster){
+        var img = el('img'); img.src = poster; img.alt = ''; img.loading = 'lazy'; card.appendChild(img);
+      } else {
+        var ph = el('div', 'vcard__ph'); ph.textContent = 'Video placeholder'; card.appendChild(ph);
+      }
+      card.appendChild(el('span', 'vcard__shade'));
+      card.appendChild(el('span', 'vcard__play'));
+      var meta = el('span', 'vcard__meta');
+      var t = el('span', 'vcard__title'); t.textContent = v.title || '';
+      var sr = el('span', 'vcard__src'); sr.textContent = label[v.type] || '';
+      meta.appendChild(t); meta.appendChild(sr); card.appendChild(meta);
+      if(!isStatic && !isLink){ card.addEventListener('click', function(){ openBox(v, card); }); }
+      strip.appendChild(card);
+    });
+
+    if('IntersectionObserver' in window && previews.length){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.play().catch(function(){}); } else { e.target.pause(); } });
+      }, {threshold:.5});
+      previews.forEach(function(pv){ io.observe(pv); });
+    }
+
+    function openBox(v, opener){
+      lastFocus = opener;
+      body.textContent = '';
+      body.classList.toggle('is-tall', v.ratio === 'tall');
+      if(v.type === 'youtube' && /^[\w-]{6,15}$/.test(v.id)){
+        var f = el('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.referrerPolicy = 'strict-origin-when-cross-origin'; f.allowFullscreen = true; f.title = v.title || 'Video';
+        body.appendChild(f);
+        var yt = el('a', 'lightbox__yt'); yt.href = 'https://www.youtube.com/watch?v=' + v.id; yt.target = '_blank'; yt.rel = 'noopener'; yt.textContent = 'Watch on YouTube \u2197';
+        body.appendChild(yt);
+      } else if(v.type === 'video' && v.src){
+        var vd = el('video'); vd.src = v.src; vd.controls = true; vd.autoplay = true; vd.playsInline = true;
+        body.appendChild(vd);
+      } else { return; }
+      box.classList.add('open');
+      closeBtn.focus();
+    }
+    function closeBox(){
+      if(!box.classList.contains('open')) return;
+      box.classList.remove('open');
+      body.textContent = '';
+      if(lastFocus){ lastFocus.focus(); }
+    }
+    closeBtn.addEventListener('click', closeBox);
+    box.addEventListener('click', function(e){ if(e.target === box){ closeBox(); } });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeBox(); } });
+
+    function step(dir){ strip.scrollBy({left: dir * strip.clientWidth * 0.8, behavior: reduceMotion ? 'auto' : 'smooth'}); }
+    document.getElementById('reelPrev').addEventListener('click', function(){ step(-1); });
+    document.getElementById('reelNext').addEventListener('click', function(){ step(1); });
+  })();
 
   // Only one stack can be pinned (focused by a click) at a time. Scrolling away or clicking elsewhere unfocuses it.
   var activePin = null;
@@ -716,7 +867,7 @@
     scrollTrigger:{trigger:'.journey', start:'top 60%', end:'bottom 85%', scrub:0.6}
   });
 
-  var navMap = {roots:'story', coachello:'work', 'notify-learn':'projects', toolkit:'toolkit'};
+  var navMap = {roots:'story', coachello:'work', 'notify-learn':'projects', toolkit:'toolkit', reel:'reel'};
   Object.keys(navMap).forEach(function(id){
     var el = document.getElementById(id);
     var link = document.querySelector('[data-nav="' + navMap[id] + '"]');
