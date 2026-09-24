@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akeel Ahmed · Senior Software Engineer</title>
+<title>AKSHILMY</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23E8934A' fill-opacity='.25'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23E8934A'/%3E%3C/svg%3E">
 <meta name="description" content="Akeel Ahmed · Senior Software Engineer in AI / Automation and Backend. The story so far, one chapter at a time.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -176,6 +177,15 @@
     background:rgba(13,18,16,.7);padding:5px 8px;border-radius:6px;font-size:.66rem;color:var(--paper);
   }
 
+  /* parent heading + sub-chapters (projects along the timeline) */
+  .builds-head{position:relative;z-index:1;text-align:center;padding:90px 0 0;}
+  .builds-head__box{display:inline-block;background:var(--ink);padding:10px 28px;max-width:100%;}
+  .builds-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);}
+  .builds-head p{margin-top:10px;color:var(--ink-dim);}
+  .chapter--sub .chapter__node{width:9px;height:9px;}
+  .chapter--sub .chapter__text h2{font-size:clamp(1.35rem,2.6vw,1.75rem);}
+  @media (max-width:720px){ .builds-head{padding-top:64px;} }
+
   /* mini list (Notify Learn components) */
   .mini-list{margin-top:18px;display:flex;flex-direction:column;gap:14px;max-width:52ch;}
   .mini-item{display:flex;gap:12px;align-items:flex-start;}
@@ -252,8 +262,8 @@
     <ul class="nav__links" id="navLinks">
       <li><a href="#roots" data-nav="story">Story</a></li>
       <li><a href="#coachello" data-nav="work">Work</a></li>
-      <li><a href="#notify-learn" data-nav="projects">Projects</a></li>
       <li><a href="#toolkit" data-nav="toolkit">Toolkit</a></li>
+      <li><a href="#builds" data-nav="projects">Projects</a></li>
       <li><a href="#reel" data-nav="reel">Reel</a></li>
       <li class="nav__cta"><a href="#now" class="btn btn--signal">Connect</a></li>
     </ul>
@@ -443,42 +453,7 @@
     </div>
   </section>
 
-  <section class="chapter chapter--right" id="notify-learn">
-    <span class="chapter__node"></span>
-    <div class="wrap chapter__grid">
-      <div class="chapter__media">
-        <div class="image-set">
-          <div class="placeholder-photo"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6l1.2-2h5.6L16 6" stroke="currentColor" stroke-width="1.5"/></svg><span>Photo: Notify Learn web app</span></div>
-          <div class="placeholder-photo"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6l1.2-2h5.6L16 6" stroke="currentColor" stroke-width="1.5"/></svg><span>Photo: Notify Learn Android app</span></div>
-          <div class="placeholder-photo"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6l1.2-2h5.6L16 6" stroke="currentColor" stroke-width="1.5"/></svg><span>Photo: Notify Learn Chrome extension</span></div>
-        </div>
-      </div>
-      <div class="chapter__text">
-        <h2>What I'm Building for Myself</h2>
-        <p class="body">A cross-platform learning ecosystem spanning five components, unified under one shared PostgreSQL schema and REST API, turning passive bookmark hoarding into something you actually revisit.</p>
-        <div class="mini-list">
-          <div class="mini-item">
-            <div><h3>Web App</h3><p>Next.js · PostgreSQL · TypeScript. The ecosystem's central hub.</p><a href="https://notify-learn.vercel.app/" target="_blank" rel="noopener">View live →</a></div>
-          </div>
-          <div class="mini-item">
-            <div><h3>Android App</h3><p>React Native. One-tap link capture via native OS share intents.</p></div>
-          </div>
-          <div class="mini-item">
-            <div><h3>Chrome Extension</h3><p>Manifest V3. Context-menu hooks, secure cross-context messaging.</p><a href="https://chromewebstore.google.com/detail/jndhelenakecabkbigajbbncoihdadco" target="_blank" rel="noopener">Chrome Web Store →</a></div>
-          </div>
-          <div class="mini-item">
-            <div><h3>Go CLI</h3><p>Cobra/Viper, exponential-backoff retries, OAuth 2.0 PKCE flow.</p></div>
-          </div>
-          <div class="mini-item">
-            <div><h3>MCP Server</h3><p>Public NPM package that lets agents like Claude Code query learning stats.</p><a href="https://www.npmjs.com/package/notify-learn-mcp" target="_blank" rel="noopener">NPM package →</a></div>
-          </div>
-        </div>
-        <a href="https://github.com/notify-learn" target="_blank" rel="noopener" class="mono" style="display:inline-block;margin-top:16px;color:var(--trace);border-bottom:1px solid rgba(95,168,140,.4);font-size:.85rem;">github.com/notify-learn →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="chapter chapter--left" id="toolkit">
+  <section class="chapter chapter--right" id="toolkit">
     <span class="chapter__node"></span>
     <div class="wrap chapter__grid">
       <div class="chapter__media">
@@ -502,6 +477,51 @@
       </div>
     </div>
   </section>
+
+  <div id="builds">
+  <div class="builds-head">
+    <div class="builds-head__box">
+      <h2>What I'm Building for Myself</h2>
+      <p>Projects I build on the side.</p>
+    </div>
+  </div>
+
+  <section class="chapter chapter--left chapter--sub" id="notify-learn">
+    <span class="chapter__node"></span>
+    <div class="wrap chapter__grid">
+      <div class="chapter__media">
+        <div class="image-set">
+          <div class="placeholder-photo"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6l1.2-2h5.6L16 6" stroke="currentColor" stroke-width="1.5"/></svg><span>Photo: Notify Learn web app</span></div>
+          <div class="placeholder-photo"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6l1.2-2h5.6L16 6" stroke="currentColor" stroke-width="1.5"/></svg><span>Photo: Notify Learn Android app</span></div>
+          <div class="placeholder-photo"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12.5" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6l1.2-2h5.6L16 6" stroke="currentColor" stroke-width="1.5"/></svg><span>Photo: Notify Learn Chrome extension</span></div>
+        </div>
+      </div>
+      <div class="chapter__text">
+        <h2>Notify Learn</h2>
+        <p class="body">A cross-platform learning ecosystem spanning five components, unified under one shared PostgreSQL schema and REST API, turning passive bookmark hoarding into something you actually revisit.</p>
+        <a href="https://github.com/notify-learn" target="_blank" rel="noopener" class="mono" style="display:inline-block;margin-top:14px;color:var(--trace);border-bottom:1px solid rgba(95,168,140,.4);font-size:.85rem;">github.com/notify-learn →</a>
+        <div class="mini-list">
+          <div class="mini-item">
+            <div><h3>Web App</h3><p>Next.js · PostgreSQL · TypeScript. The ecosystem's central hub.</p><a href="https://notify-learn.vercel.app/" target="_blank" rel="noopener">View live →</a></div>
+          </div>
+          <div class="mini-item">
+            <div><h3>Android App</h3><p>React Native. One-tap link capture via native OS share intents.</p><a href="https://groups.google.com/g/notify-learn-early-access" target="_blank" rel="noopener">Try it: join the early access group →</a></div>
+          </div>
+          <div class="mini-item">
+            <div><h3>Chrome Extension</h3><p>Manifest V3. Context-menu hooks, secure cross-context messaging.</p><a href="https://chromewebstore.google.com/detail/jndhelenakecabkbigajbbncoihdadco" target="_blank" rel="noopener">Chrome Web Store →</a></div>
+          </div>
+          <div class="mini-item">
+            <div><h3>Go CLI</h3><p>Cobra/Viper, exponential-backoff retries, OAuth 2.0 PKCE flow.</p><a href="https://github.com/notify-learn/.github/blob/main/profile/README.md?plain=1#L39" target="_blank" rel="noopener">CLI info →</a></div>
+          </div>
+          <div class="mini-item">
+            <div><h3>MCP Server</h3><p>Public NPM package that lets agents like Claude Code query learning stats.</p><a href="https://www.npmjs.com/package/notify-learn-mcp" target="_blank" rel="noopener">NPM package →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
 </div>
 
 <section class="reel" id="reel">
@@ -578,7 +598,6 @@
   document.getElementById('navLinks').addEventListener('click', function(e){
     if(e.target.tagName === 'A'){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
   });
-
 
   // Reel: add a video by adding one line here.
   // type: 'youtube' (id), 'video' (src = mp4/webm url), 'instagram' (url), 'placeholder' (no link yet).
@@ -880,7 +899,7 @@
     scrollTrigger:{trigger:'.journey', start:'top 60%', end:'bottom 85%', scrub:0.6}
   });
 
-  var navMap = {roots:'story', coachello:'work', 'notify-learn':'projects', toolkit:'toolkit', reel:'reel'};
+  var navMap = {roots:'story', coachello:'work', builds:'projects', toolkit:'toolkit', reel:'reel'};
   Object.keys(navMap).forEach(function(id){
     var el = document.getElementById(id);
     var link = document.querySelector('[data-nav="' + navMap[id] + '"]');
