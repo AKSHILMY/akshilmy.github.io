@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akeel Ahmed · AI / Backend Engineer</title>
-<meta name="description" content="Akeel Ahmed · AI / Backend Engineer. The story so far, one chapter at a time.">
+<title>Akeel Ahmed · Senior Software Engineer</title>
+<meta name="description" content="Akeel Ahmed · Senior Software Engineer in AI / Automation and Backend. The story so far, one chapter at a time.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -116,6 +116,7 @@
   .chapter__org{margin-top:8px;color:var(--signal);font-size:.98rem;}
   .chapter__org a{border-bottom:1px solid rgba(232,147,74,.4);}
   .chapter__org a:hover{border-color:var(--signal);}
+  .chapter__loc{margin-top:4px;font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);}
   .chapter__text p.body{margin-top:16px;color:var(--ink-dim);font-size:1.02rem;max-width:48ch;}
   .chapter__list{margin:16px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;max-width:50ch;}
   .chapter__list li{position:relative;padding-left:18px;color:var(--ink-dim);font-size:.98rem;}
@@ -178,7 +179,6 @@
   /* mini list (Notify Learn components) */
   .mini-list{margin-top:18px;display:flex;flex-direction:column;gap:14px;max-width:52ch;}
   .mini-item{display:flex;gap:12px;align-items:flex-start;}
-  .mini-item__num{font-family:var(--mono);font-size:.76rem;color:var(--signal);padding-top:3px;flex:none;width:2.4em;}
   .mini-item h3{font-size:1rem;}
   .mini-item p{margin-top:4px;color:var(--ink-dim);font-size:.92rem;}
   .mini-item a{display:inline-block;margin-top:6px;font-family:var(--mono);font-size:.8rem;color:var(--trace);border-bottom:1px solid rgba(95,168,140,.4);}
@@ -266,8 +266,8 @@
 <header class="hero" id="top">
   <div class="wrap">
     <h1>Akeel Ahmed</h1>
-    <p class="hero__role">AI / Backend Engineer</p>
-    <p class="hero__summary">Software engineer specialising in AI/ML integration: designing APIs, shipping agentic features end to end, and keeping the infrastructure underneath them running in production. This is the story of how I got here, one chapter at a time.</p>
+    <p class="hero__role">Senior Software Engineer · AI / Automation &amp; Backend</p>
+    <p class="hero__summary">I build AI that actually ships, and the backend that keeps it standing. From agentic features to the APIs and infrastructure beneath them, I take ideas all the way to production. This is the story of how I got here, one chapter at a time.</p>
     <p class="hero__meta">Kandy, Sri Lanka · currently @ Coachello</p>
     <div class="hero__ctas">
       <a href="mailto:akshilmy.19@gmail.com" class="btn btn--signal">Email me</a>
@@ -295,7 +295,11 @@
         <p class="chapter__eyebrow">2004–2015</p>
         <h2>Roots</h2>
         <p class="chapter__org">Hill Country International School · Madawala Bazaar</p>
-        <p class="body">Eight A's and a B at O/Level, Head Prefect, and Hill Countrian of the Year. The first proof that showing up and doing the work pays off.</p>
+        <ul class="chapter__list">
+          <li>8 A's and a B at O/Level.</li>
+          <li>Head Prefect and Hill Countrian of the Year, 2015.</li>
+        </ul>
+        <p class="body">Where I first learnt that consistency pays off.</p>
       </div>
     </div>
   </section>
@@ -314,7 +318,11 @@
         <p class="chapter__eyebrow">2016–2018</p>
         <h2>Foundations</h2>
         <p class="chapter__org">Kingswood College, Kandy · G.C.E. Advanced Level</p>
-        <p class="body">Physical Science stream. Combined Maths and Chemistry at A, Physics at B, and a Z-score of 1.8929 that opened the door to engineering.</p>
+        <ul class="chapter__list">
+          <li>Physical Science stream.</li>
+          <li>A's in Combined Maths and Chemistry, a B in Physics.</li>
+        </ul>
+        <p class="body">The results that opened the door to engineering at the leading technological university in Sri Lanka.</p>
       </div>
     </div>
   </section>
@@ -333,7 +341,11 @@
         <p class="chapter__eyebrow">2020–2024</p>
         <h2>The Turn</h2>
         <p class="chapter__org">University of Moratuwa · BSc (Hons), Computer Science &amp; Engineering</p>
-        <p class="body">First Class, CGPA 3.76/4.2, Dean's List in four semesters. This is where engineering stopped being a subject and became the thing I do.</p>
+        <ul class="chapter__list">
+          <li>First Class, CGPA 3.76/4.2.</li>
+          <li>Dean's List in Semesters 1, 2, 6 and 8.</li>
+        </ul>
+        <p class="body">This is where engineering stopped being a subject and became my craft.</p>
       </div>
     </div>
   </section>
@@ -370,18 +382,49 @@
       <div class="chapter__text">
         <p class="chapter__eyebrow">2023 · Internship &amp; part-time</p>
         <h2>Into the Field</h2>
-        <p class="chapter__org"><a href="https://www.promiseq.com/" target="_blank" rel="noopener">PromiseQ</a> · Machine Learning Engineer · Berlin, Germany (Remote)</p>
+        <p class="chapter__org"><a href="https://www.promiseq.com/" target="_blank" rel="noopener">PromiseQ</a> · Machine Learning Engineer</p>
+        <p class="chapter__loc">Berlin, Germany · Remote</p>
+        <p class="body">My first taste of industry: an Industrial Training internship (Grade A) that grew into a part-time role on a real-time, production ML system.</p>
         <ul class="chapter__list">
-          <li>Built a modular prediction processor for real-time image/video post-processing in a distributed pipeline.</li>
-          <li>Worked with Nvidia DeepStream and GStreamer on the company's threat-detection system.</li>
+          <li>Built an adaptable, modular prediction processor for real-time image/video post-processing in a distributed pipeline.</li>
+          <li>Added a hierarchical YAML pipeline generator for conditional post-processing, and a switchable JSON mock-prediction mode that cut video processing and VM costs in internal testing.</li>
+          <li>Integrated the processor into the live pipeline with concurrent programming, alongside Nvidia DeepStream and GStreamer on the threat-detection system.</li>
           <li>Resolved Docker/Kubernetes and RabbitMQ issues across testing and production ML services.</li>
         </ul>
-        <div class="chapter__tags"><span class="tag">Python</span><span class="tag">GStreamer</span><span class="tag">DeepStream</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">RabbitMQ</span></div>
+        <div class="chapter__tags"><span class="tag">Python</span><span class="tag">GStreamer</span><span class="tag">DeepStream</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">RabbitMQ</span><span class="tag">GitLab</span><span class="tag">Jetson Nano</span><span class="tag">Cloud VMs</span></div>
       </div>
     </div>
   </section>
 
-  <section class="chapter chapter--right" id="going-deeper">
+  <section class="chapter chapter--right" id="coachello">
+    <span class="chapter__node"></span>
+    <div class="wrap chapter__grid">
+      <div class="chapter__media">
+        <div class="image-set">
+          <div class="placeholder-photo has-photo"><img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=720&q=70" alt="Stock photo placeholder: at Coachello / remote setup" loading="lazy"><span class="photo-credit">Stock placeholder · Unsplash</span></div>
+          <div class="placeholder-photo has-photo"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=720&q=70" alt="Stock photo placeholder: the Copilot Agent in action" loading="lazy"><span class="photo-credit">Stock placeholder · Unsplash</span></div>
+          <div class="placeholder-photo has-photo"><img src="https://images.unsplash.com/photo-1580894894513-541e068a3e2b?auto=format&fit=crop&w=720&q=70" alt="Stock photo placeholder: team / co-working call" loading="lazy"><span class="photo-credit">Stock placeholder · Unsplash</span></div>
+        </div>
+      </div>
+      <div class="chapter__text">
+        <p class="chapter__eyebrow">Feb 2024–Present</p>
+        <h2>Where I Build Now</h2>
+        <p class="chapter__org"><a href="https://coachello.ai/" target="_blank" rel="noopener">Coachello</a> · Senior Software Engineer, AI / Automation &amp; Backend</p>
+        <p class="chapter__loc">Paris, France · Remote</p>
+        <ul class="chapter__list">
+          <li>Supervised interns, part-timers and junior engineers, and made notable contributions to the business development that landed Coachello's initial AI coaching deals and opened the door to several more.</li>
+          <li>Co-led development of Coachello's Copilot Agent, defining the flow, designing the endpoints, and architecting the integration under AI security and regulatory requirements.</li>
+          <li>Built the backend for key features, including a content recommendation system and multi-modal (text, voice, avatar), RAG-based personalised coaching and roleplay.</li>
+          <li>Designed RESTful APIs and WebSocket endpoints, working with the UI team to define data flows, and contributed to UI features and end-to-end user workflows.</li>
+          <li>Monitored AWS deployments, resolved infrastructure issues, and supported the migration from AWS to Azure with full post-migration testing.</li>
+          <li>Led migration of the vector database infrastructure between managed providers, preserving data integrity and coaching quality.</li>
+        </ul>
+        <div class="chapter__tags"><span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">RAG</span><span class="tag">OpenAI</span><span class="tag">LangChain</span><span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span><span class="tag">Alembic</span><span class="tag">PostgreSQL</span><span class="tag">Vector DB</span><span class="tag">WebSockets</span><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">Docker</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter chapter--left" id="going-deeper">
     <span class="chapter__node"></span>
     <div class="wrap chapter__grid">
       <div class="chapter__media">
@@ -400,31 +443,6 @@
     </div>
   </section>
 
-  <section class="chapter chapter--left" id="coachello">
-    <span class="chapter__node"></span>
-    <div class="wrap chapter__grid">
-      <div class="chapter__media">
-        <div class="image-set">
-          <div class="placeholder-photo has-photo"><img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=720&q=70" alt="Stock photo placeholder: at Coachello / remote setup" loading="lazy"><span class="photo-credit">Stock placeholder · Unsplash</span></div>
-          <div class="placeholder-photo has-photo"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=720&q=70" alt="Stock photo placeholder: the Copilot Agent in action" loading="lazy"><span class="photo-credit">Stock placeholder · Unsplash</span></div>
-          <div class="placeholder-photo has-photo"><img src="https://images.unsplash.com/photo-1580894894513-541e068a3e2b?auto=format&fit=crop&w=720&q=70" alt="Stock photo placeholder: team / co-working call" loading="lazy"><span class="photo-credit">Stock placeholder · Unsplash</span></div>
-        </div>
-      </div>
-      <div class="chapter__text">
-        <p class="chapter__eyebrow">Feb 2024–Present</p>
-        <h2>Where I Build Now</h2>
-        <p class="chapter__org"><a href="https://coachello.ai/" target="_blank" rel="noopener">Coachello</a> · AI / Backend Engineer · Paris, France (Remote)</p>
-        <ul class="chapter__list">
-          <li>Co-led development of Coachello's Copilot Agent, defining the flow, designing the endpoints, and architecting the integration under AI security and regulatory requirements.</li>
-          <li>Built the backend for multi-modal (text, voice, avatar), RAG-based personalised coaching and roleplay.</li>
-          <li>Designed RESTful APIs and WebSocket endpoints, and supported the platform's migration from AWS to Azure.</li>
-          <li>Led migration of the vector database infrastructure between managed providers, preserving data integrity and coaching quality.</li>
-        </ul>
-        <div class="chapter__tags"><span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">Docker</span></div>
-      </div>
-    </div>
-  </section>
-
   <section class="chapter chapter--right" id="notify-learn">
     <span class="chapter__node"></span>
     <div class="wrap chapter__grid">
@@ -436,28 +454,22 @@
         </div>
       </div>
       <div class="chapter__text">
-        <p class="chapter__eyebrow">Feb 2026–Present · Side project</p>
         <h2>What I'm Building for Myself</h2>
         <p class="body">A cross-platform learning ecosystem spanning five components, unified under one shared PostgreSQL schema and REST API, turning passive bookmark hoarding into something you actually revisit.</p>
         <div class="mini-list">
           <div class="mini-item">
-            <span class="mini-item__num">01/05</span>
             <div><h3>Web App</h3><p>Next.js · PostgreSQL · TypeScript. The ecosystem's central hub.</p><a href="https://notify-learn.vercel.app/" target="_blank" rel="noopener">View live →</a></div>
           </div>
           <div class="mini-item">
-            <span class="mini-item__num">02/05</span>
             <div><h3>Android App</h3><p>React Native. One-tap link capture via native OS share intents.</p></div>
           </div>
           <div class="mini-item">
-            <span class="mini-item__num">03/05</span>
             <div><h3>Chrome Extension</h3><p>Manifest V3. Context-menu hooks, secure cross-context messaging.</p><a href="https://chromewebstore.google.com/detail/jndhelenakecabkbigajbbncoihdadco" target="_blank" rel="noopener">Chrome Web Store →</a></div>
           </div>
           <div class="mini-item">
-            <span class="mini-item__num">04/05</span>
             <div><h3>Go CLI</h3><p>Cobra/Viper, exponential-backoff retries, OAuth 2.0 PKCE flow.</p></div>
           </div>
           <div class="mini-item">
-            <span class="mini-item__num">05/05</span>
             <div><h3>MCP Server</h3><p>Public NPM package that lets agents like Claude Code query learning stats.</p><a href="https://www.npmjs.com/package/notify-learn-mcp" target="_blank" rel="noopener">NPM package →</a></div>
           </div>
         </div>
@@ -522,6 +534,7 @@
         <a href="mailto:akshilmy.19@gmail.com" class="btn btn--signal">Email me</a>
         <a href="https://github.com/AKSHILMY" class="btn btn--outline" target="_blank" rel="noopener">GitHub</a>
         <a href="https://linkedin.com/in/AKSHILMY" class="btn btn--outline" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://buymeacoffee.com/akshilmy" class="btn btn--outline" target="_blank" rel="noopener">☕ Buy me a coffee</a>
       </div>
     </div>
   </div>
