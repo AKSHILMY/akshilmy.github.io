@@ -55,7 +55,13 @@
   .nav.scrolled{background:rgba(13,18,16,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 0;border-color:var(--line);}
   .nav__row{display:flex;align-items:center;justify-content:space-between;gap:24px;}
   .brand{font-family:var(--mono);font-weight:500;font-size:1rem;color:var(--paper);display:flex;align-items:center;gap:8px;}
-  .brand__dot{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px rgba(232,147,74,.2);}
+  .brand__dot{position:relative;width:16px;height:16px;display:inline-flex;color:var(--signal);cursor:help;}
+  .brand__dot svg{width:100%;height:100%;animation:wip-blink 1.6s ease-in-out infinite;transform-origin:50% 60%;}
+  .brand__dot:hover svg{animation:none;}
+  .brand__dot::after{content:attr(data-tip);position:absolute;top:calc(100% + 12px);left:-4px;white-space:nowrap;font-family:var(--mono);font-size:.72rem;font-weight:400;color:var(--paper);background:rgba(13,18,16,.96);border:1px solid var(--line);border-radius:6px;padding:6px 10px;opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity .18s,transform .18s;z-index:10;}
+  .brand__dot:hover::after,.brand__dot:focus-visible::after{opacity:1;transform:none;}
+  @keyframes wip-blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.88);}}
+  @media (prefers-reduced-motion:reduce){.brand__dot svg{animation:none;}}
   .nav__links{display:flex;align-items:center;gap:30px;list-style:none;margin:0;padding:0;}
   .nav__links a:not(.btn){position:relative;font-size:.92rem;color:var(--ink-dim);padding:4px 0;transition:color .25s;}
   .nav__links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--signal);transform:scaleX(0);transform-origin:center;transition:transform .3s var(--ease);}
@@ -259,7 +265,7 @@
 
 <nav class="nav" id="nav">
   <div class="wrap nav__row">
-    <a href="#top" class="brand"><span class="brand__dot"></span>Akeel Ahmed</a>
+    <a href="#top" class="brand"><span class="brand__dot" tabindex="0" role="img" aria-label="Under construction: this site is still being built" data-tip="Under construction · still building this, check back soon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>Akeel Ahmed</a>
     <ul class="nav__links" id="navLinks">
       <li><a href="#roots" data-nav="story">Story</a></li>
       <li><a href="#coachello" data-nav="work">Work</a></li>
