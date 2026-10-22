@@ -232,32 +232,50 @@
   footer{border-top:1px solid var(--line);padding:40px 0 34px;}
   .footer__bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--ink-dim);font-family:var(--mono);font-size:.8rem;}
 
-  /* reel: videos filmstrip + lightbox */
-  .reel{padding:110px 0 20px;}
-  .reel__head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
-  .reel__head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);}
-  .reel__head p{margin:12px 0 0;color:var(--ink-dim);max-width:52ch;}
-  .reel__arrows{display:flex;gap:10px;}
-  .reel__arrow{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--ink-soft);color:var(--paper);font-size:1.1rem;transition:border-color .25s,color .25s;}
-  .reel__arrow:hover{border-color:var(--trace);color:var(--trace);}
-  .reel__strip{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:30px 28px 26px;margin:0 auto;max-width:var(--maxw);box-sizing:border-box;scroll-padding:0 28px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;}
-  .vcard{flex:none;scroll-snap-align:start;position:relative;height:300px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,var(--ink-soft),var(--ink-card));color:var(--paper);padding:0;text-align:left;font:inherit;display:block;transition:border-color .3s,transform .4s var(--ease),filter .3s;filter:brightness(.85);}
-  .vcard--wide{aspect-ratio:16/9;}
-  .vcard--tall{aspect-ratio:9/16;}
-  .vcard:hover,.vcard:focus-visible{border-color:var(--trace);filter:none;transform:translateY(-4px);}
-  .vcard.is-static{cursor:default;}
-  .vcard.is-static:hover{transform:none;border-color:var(--line);filter:brightness(.85);}
-  .vcard img,.vcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-  .vcard__shade{position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(13,18,16,.88));}
-  .vcard__play{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:rgba(13,18,16,.6);border:1px solid var(--signal);display:grid;place-items:center;transition:background .25s,transform .3s var(--ease);}
-  .vcard__play::after{content:"";margin-left:4px;border-left:14px solid var(--signal);border-top:8px solid transparent;border-bottom:8px solid transparent;}
-  .vcard:hover .vcard__play{background:var(--signal);transform:scale(1.08);}
-  .vcard:hover .vcard__play::after{border-left-color:var(--ink);}
-  .vcard.is-static .vcard__play{display:none;}
-  .vcard__meta{position:absolute;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:4px;}
-  .vcard__title{font-family:"Space Grotesk",sans-serif;font-size:1rem;}
-  .vcard__src{font-family:var(--mono);font-size:.7rem;color:var(--trace);}
-  .vcard__ph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:.76rem;color:var(--ink-dim);text-align:center;padding:24px;border:1px dashed var(--line);border-radius:14px;}
+  /* build log: accordion diary, newest first. One entry open at a time, five visible, the rest scroll. (+ lightbox below) */
+  .log{padding:110px 0 20px;}
+  .log__head h2{font-size:clamp(1.8rem,3.4vw,2.6rem);}
+  .log__head p{margin:12px 0 0;color:var(--ink-dim);max-width:56ch;}
+  .log__bar{margin:26px 0 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:var(--mono);font-size:.78rem;color:var(--ink-dim);}
+  .log__ctrl{display:flex;gap:8px;}
+  .log__ctrl button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--ink-soft);color:var(--paper);font-size:1rem;line-height:1;cursor:pointer;transition:border-color .2s,color .2s,opacity .2s;}
+  .log__ctrl button:hover:not(:disabled){border-color:var(--trace);color:var(--trace);}
+  .log__ctrl button:disabled{opacity:.35;cursor:default;}
+  .log__scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(147,163,154,.35) transparent;padding-right:6px;transition:max-height .35s var(--ease);}
+  .log__scroll.is-clipped{border-bottom:1px solid var(--line);}
+  .entry{margin-bottom:10px;border:1px solid var(--line);border-radius:var(--radius);background:var(--ink-soft);overflow:hidden;transition:border-color .25s,background .25s;}
+  .entry.open{border-color:rgba(95,168,140,.5);background:linear-gradient(160deg,var(--ink-soft),var(--ink-card));}
+  .entry__hd{width:100%;display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 20px;background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer;}
+  .entry__hd:hover .entry__title,.entry__hd:focus-visible .entry__title{color:var(--trace);}
+  .entry__when{flex:none;width:72px;font-family:var(--mono);font-size:.78rem;line-height:1.3;color:var(--ink-dim);}
+  .entry__when b{display:block;font-family:"Space Grotesk",sans-serif;font-size:1.25rem;font-weight:600;color:var(--paper);}
+  .entry__title{flex:1;min-width:0;font-family:"Space Grotesk",sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:-.01em;line-height:1.3;transition:color .2s;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .entry.open .entry__title{white-space:normal;font-size:1.2rem;}
+  .entry__badge{flex:none;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--signal);border-radius:999px;padding:3px 9px;}
+  .entry__chev{flex:none;width:18px;height:18px;stroke:var(--ink-dim);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease);}
+  .entry.open .entry__chev{transform:rotate(180deg);}
+  .entry__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease);}
+  .entry.open .entry__panel{grid-template-rows:1fr;}
+  .entry__panel > div{overflow:hidden;min-height:0;}
+  .entry__inner{display:flex;gap:24px;align-items:flex-start;padding:4px 20px 22px 108px;}
+  .lthumb{position:relative;flex:none;width:min(380px,100%);aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,var(--ink-soft),var(--ink-card));padding:0;cursor:pointer;display:block;transition:border-color .3s,transform .35s var(--ease);}
+  .lthumb:hover,.lthumb:focus-visible{border-color:var(--trace);transform:translateY(-3px);}
+  .lthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .lthumb__shade{position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(13,18,16,.6));}
+  .lthumb__play{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:rgba(13,18,16,.62);border:1px solid var(--signal);display:grid;place-items:center;transition:background .25s,transform .3s var(--ease);}
+  .lthumb__play::after{content:"";margin-left:4px;border-left:14px solid var(--signal);border-top:8px solid transparent;border-bottom:8px solid transparent;}
+  .lthumb:hover .lthumb__play{background:var(--signal);transform:scale(1.08);}
+  .lthumb:hover .lthumb__play::after{border-left-color:var(--ink);}
+  .lthumb.is-static{cursor:default;}
+  .lthumb.is-static:hover{transform:none;border-color:var(--line);}
+  .lthumb.is-static .lthumb__play{display:none;}
+  .lthumb__ph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:.74rem;color:var(--ink-dim);text-align:center;padding:16px;}
+  .entry__body{min-width:0;}
+  .entry__note{color:var(--ink-dim);font-size:.98rem;max-width:56ch;}
+  .entry__tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;}
+  .entry__yt{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:.78rem;color:var(--trace);border-bottom:1px solid rgba(95,168,140,.4);}
+  .entry__yt:hover{border-color:var(--trace);}
+  @media (prefers-reduced-motion:reduce){ .log__scroll,.entry__panel,.entry__chev{transition:none;} }
   .lightbox{position:fixed;inset:0;z-index:200;background:rgba(8,12,10,.9);display:none;align-items:center;justify-content:center;padding:24px;}
   .lightbox.open{display:flex;}
   .lightbox__body{width:min(960px,100%);max-height:92vh;display:flex;flex-direction:column;align-items:center;gap:14px;}
@@ -267,10 +285,11 @@
   .lightbox__body.is-tall iframe,.lightbox__body.is-tall video{width:auto;height:80vh;max-width:100%;aspect-ratio:9/16;}
   .lightbox__close{position:absolute;top:18px;right:22px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--ink-soft);color:var(--paper);font-size:1.2rem;}
   .lightbox__close:hover{border-color:var(--signal);color:var(--signal);}
-  @media (max-width:640px){
-    .reel__strip{padding:24px 20px 20px;scroll-padding:0 20px;}
-    .reel__arrows{display:none;}
-    .vcard{height:240px;}
+  @media (max-width:720px){
+    .entry__hd{padding:12px 16px;gap:12px;}
+    .entry__when{width:68px;}
+    .entry__inner{flex-direction:column;gap:14px;padding:4px 16px 18px;}
+    .lthumb{width:100%;}
   }
 </style>
 </head>
@@ -285,7 +304,7 @@
       <li><a href="#coachello" data-nav="work">Work</a></li>
       <li><a href="#toolkit" data-nav="toolkit">Toolkit</a></li>
       <li><a href="#builds" data-nav="projects">Projects</a></li>
-      <li><a href="#reel" data-nav="reel">Reel</a></li>
+      <li><a href="#log" data-nav="log">Build Log</a></li>
       <li class="nav__cta"><a href="#now" class="btn btn--signal">Connect</a></li>
     </ul>
     <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -527,19 +546,24 @@
 
 </div>
 
-<section class="reel" id="reel">
-  <div class="wrap reel__head">
-    <div>
-      <p class="chapter__eyebrow">On camera</p>
-      <h2>Reel</h2>
-      <p>Demos, walkthroughs and the occasional behind-the-scenes clip.</p>
+<section class="log" id="log">
+  <div class="wrap">
+    <div class="log__head">
+      <p class="chapter__eyebrow">Day by day</p>
+      <h2>Build Log</h2>
+      <p>Short video notes from what I'm trying, building and learning. The latest is open; pick any title to see its entry.</p>
     </div>
-    <div class="reel__arrows">
-      <button class="reel__arrow" id="reelPrev" aria-label="Previous videos">&larr;</button>
-      <button class="reel__arrow" id="reelNext" aria-label="Next videos">&rarr;</button>
+    <div class="log__bar">
+      <span id="logCount"></span>
+      <div class="log__ctrl" id="logCtrl" hidden>
+        <button type="button" id="logUp" aria-label="Scroll up">&uarr;</button>
+        <button type="button" id="logDown" aria-label="Scroll down">&darr;</button>
+      </div>
+    </div>
+    <div class="log__scroll" id="logScroll" tabindex="0" aria-label="Build log entries">
+      <div id="logList"></div>
     </div>
   </div>
-  <div class="reel__strip" id="reelStrip" tabindex="0" aria-label="Videos"></div>
 </section>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
@@ -589,76 +613,141 @@
     if(e.target.tagName === 'A'){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
   });
 
-  // Reel: add a video by adding one line here.
-  // type: 'youtube' (id), 'video' (src = mp4/webm url), 'instagram' (url), 'placeholder' (no link yet).
-  // ratio: 'wide' (16:9) or 'tall' (9:16). poster is optional for youtube (auto thumbnail).
-  var videos = [
-    {type:'video', src:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4', title:'Sample clip (stand-in)', ratio:'wide'},
-    {type:'instagram', url:'https://www.instagram.com/', poster:'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=540&q=70', title:'Reel (stand-in)', ratio:'tall'},
-    {type:'youtube', id:'jNQXAC9IVRw', title:'YouTube clip (stand-in)', ratio:'wide'}
+  // Build Log: add an entry by adding one object to this list (order is by date, newest first).
+  // date: 'YYYY-MM-DD' · id: YouTube video id (omit while a video isn't ready) · tags: optional · note: one or two short lines.
+  var logEntries = [
+    {date:'2026-10-23', id:'jNQXAC9IVRw', title:'Sample entry: wiring an MCP server into an agent', note:'Placeholder. This is where a short note about the experiment goes: what I tried, what worked, what I would do differently.', tags:['agents','experiment'], sample:true},
+    {date:'2026-10-16', id:'aqz-KE-bpKQ', title:'Sample entry: trying a new tool for a day', note:'Placeholder. Each entry is a video plus a couple of lines, so the log reads like a diary.', tags:['product'], sample:true},
+    {date:'2026-10-09', id:'eRsGyueVLvQ', title:'Sample entry: small build, quick demo', note:'Placeholder. Replace these with real videos as they are published.', tags:['build'], sample:true},
+    {date:'2026-10-02', id:'R6MlUcmOul8', title:'Sample entry: comparing two approaches side by side', note:'Placeholder. A short take on the trade-offs I noticed and which one I would pick.', tags:['experiment'], sample:true},
+    {date:'2026-09-25', id:'TLkA0RELQ1g', title:'Sample entry: a weekend prototype', note:'Placeholder. What I set out to build, how far I got, and what is next.', tags:['build','prototype'], sample:true},
+    {date:'2026-09-18', id:'M7lc1UVf-VE', title:'Sample entry: reading the docs so you do not have to', note:'Placeholder. A quick walkthrough of something new and the parts worth knowing.', tags:['learning'], sample:true},
+    {date:'2026-09-11', id:'YE7VzlLtp-4', title:'Sample entry: first impressions of a new product', note:'Placeholder. Screen-share and thoughts from the first hour of using it.', tags:['product'], sample:true}
   ];
+  var LOG_VISIBLE = 5;
   (function(){
-    var strip = document.getElementById('reelStrip');
+    var list = document.getElementById('logList');
+    var scroller = document.getElementById('logScroll');
+    var ctrl = document.getElementById('logCtrl');
+    var upBtn = document.getElementById('logUp');
+    var downBtn = document.getElementById('logDown');
+    var countEl = document.getElementById('logCount');
     var box = document.getElementById('lightbox');
     var body = document.getElementById('lightboxBody');
     var closeBtn = document.getElementById('lightboxClose');
-    if(!strip || !box) return;
+    if(!list || !box) return;
     var lastFocus = null;
-    var previews = [];
-    var label = {youtube:'YouTube', video:'Video', instagram:'Instagram', placeholder:'Video placeholder'};
+    var SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     function el(tag, cls){ var n = document.createElement(tag); if(cls) n.className = cls; return n; }
+    function parse(d){ var p = String(d).split('-'); return new Date(Date.UTC(+p[0], (+p[1] || 1) - 1, +p[2] || 1)); }
+    function validId(id){ return typeof id === 'string' && /^[\w-]{6,15}$/.test(id); }
+    var CHEV = '<svg class="entry__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 
-    videos.forEach(function(v){
-      var isStatic = v.type === 'placeholder';
-      var isLink = v.type === 'instagram';
-      var card = el(isLink ? 'a' : 'button', 'vcard vcard--' + (v.ratio === 'tall' ? 'tall' : 'wide') + (isStatic ? ' is-static' : ''));
-      if(isLink){ card.href = v.url; card.target = '_blank'; card.rel = 'noopener'; }
-      else { card.type = 'button'; }
-      if(isStatic){ card.disabled = true; }
-      var poster = v.poster || (v.type === 'youtube' && /^[\w-]{6,15}$/.test(v.id) ? 'https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg' : '');
-      if(v.type === 'video' && v.src && !reduceMotion){
-        var pv = el('video'); pv.src = v.src; pv.muted = true; pv.loop = true; pv.playsInline = true; pv.preload = 'metadata';
-        if(poster) pv.poster = poster;
-        card.appendChild(pv); previews.push(pv);
-      } else if(poster){
-        var img = el('img'); img.src = poster; img.alt = ''; img.loading = 'lazy'; card.appendChild(img);
+    var entries = logEntries.slice().sort(function(a, b){ return parse(b.date) - parse(a.date); });
+    var nodes = [];
+    entries.forEach(function(v, i){
+      var d = parse(v.date);
+      var art = el('article', 'entry');
+      var hd = el('button', 'entry__hd'); hd.type = 'button';
+      var when = el('span', 'entry__when');
+      var dd = el('b'); dd.textContent = d.getUTCDate(); when.appendChild(dd); when.appendChild(document.createTextNode(SHORT[d.getUTCMonth()] + ' ' + d.getUTCFullYear()));
+      var ttl = el('span', 'entry__title'); ttl.textContent = v.title || '';
+      hd.appendChild(when); hd.appendChild(ttl);
+      if(i === 0){ var bg = el('span', 'entry__badge'); bg.textContent = 'Latest'; hd.appendChild(bg); }
+      hd.insertAdjacentHTML('beforeend', CHEV);
+      art.appendChild(hd);
+
+      var panel = el('div', 'entry__panel'); var wrap = el('div'); var inner = el('div', 'entry__inner');
+      var hasVideo = validId(v.id);
+      var th = el(hasVideo ? 'button' : 'div', 'lthumb' + (hasVideo ? '' : ' is-static'));
+      if(hasVideo){ th.type = 'button'; th.setAttribute('aria-label', 'Play: ' + (v.title || 'video')); }
+      if(hasVideo){
+        var img = el('img'); img.src = 'https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg'; img.alt = ''; img.loading = 'lazy'; th.appendChild(img);
       } else {
-        var ph = el('div', 'vcard__ph'); ph.textContent = 'Video placeholder'; card.appendChild(ph);
+        var ph = el('div', 'lthumb__ph'); ph.textContent = 'Video coming soon'; th.appendChild(ph);
       }
-      card.appendChild(el('span', 'vcard__shade'));
-      card.appendChild(el('span', 'vcard__play'));
-      var meta = el('span', 'vcard__meta');
-      var t = el('span', 'vcard__title'); t.textContent = v.title || '';
-      var sr = el('span', 'vcard__src'); sr.textContent = label[v.type] || '';
-      meta.appendChild(t); meta.appendChild(sr); card.appendChild(meta);
-      if(!isStatic && !isLink){ card.addEventListener('click', function(){ openBox(v, card); }); }
-      strip.appendChild(card);
+      th.appendChild(el('span', 'lthumb__shade')); th.appendChild(el('span', 'lthumb__play'));
+      if(hasVideo){ th.addEventListener('click', function(){ openBox(v, th); }); }
+      inner.appendChild(th);
+      var bd = el('div', 'entry__body');
+      if(v.note){ var p = el('p', 'entry__note'); p.textContent = v.note; bd.appendChild(p); }
+      var tags = (v.tags || []).slice();
+      if(v.sample){ tags.unshift('sample'); }
+      if(tags.length){
+        var tg = el('div', 'entry__tags');
+        tags.forEach(function(t){ var s = el('span', 'tag'); s.textContent = t; tg.appendChild(s); });
+        bd.appendChild(tg);
+      }
+      if(hasVideo){
+        var yt = el('a', 'entry__yt'); yt.href = 'https://www.youtube.com/watch?v=' + v.id; yt.target = '_blank'; yt.rel = 'noopener'; yt.textContent = 'Watch on YouTube \u2197';
+        bd.appendChild(yt);
+      }
+      inner.appendChild(bd); wrap.appendChild(inner); panel.appendChild(wrap); art.appendChild(panel);
+      hd.addEventListener('click', function(){ select(i, true); });
+      list.appendChild(art);
+      nodes.push({art:art, hd:hd, panel:panel});
     });
+    countEl.textContent = entries.length + (entries.length === 1 ? ' entry' : ' entries') + ' · newest first';
 
-    if('IntersectionObserver' in window && previews.length){
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ e.target.play().catch(function(){}); } else { e.target.pause(); } });
-      }, {threshold:.5});
-      previews.forEach(function(pv){ io.observe(pv); });
+    var current = -1;
+    function select(i, scrollTo){
+      if(i === current) return;
+      current = i;
+      nodes.forEach(function(n, k){
+        var on = k === i;
+        n.art.classList.toggle('open', on);
+        n.hd.setAttribute('aria-expanded', on ? 'true' : 'false');
+        n.panel.setAttribute('aria-hidden', on ? 'false' : 'true');
+        if(on){ n.panel.removeAttribute('inert'); } else { n.panel.setAttribute('inert', ''); }
+      });
+      fit();
+      if(scrollTo){
+        setTimeout(function(){
+          var top = nodes[i].art.offsetTop - list.offsetTop;
+          scroller.scrollTo({top: Math.max(0, top - 4), behavior: reduceMotion ? 'auto' : 'smooth'});
+        }, 60);
+      }
     }
+
+    // Window height = the open entry + four title rows, so five entries are visible at a time.
+    function fit(){
+      if(nodes.length <= LOG_VISIBLE){ scroller.style.maxHeight = ''; ctrl.hidden = true; scroller.classList.remove('is-clipped'); return; }
+      ctrl.hidden = false;
+      var open = nodes[current] || nodes[0];
+      var rest = nodes.filter(function(n){ return n !== open; });
+      var rowH = rest[0].hd.offsetHeight + 2 + 10;
+      var inner = open.panel.firstElementChild.firstElementChild;
+      var openH = open.hd.offsetHeight + inner.offsetHeight + 2 + 10;
+      scroller.style.maxHeight = Math.round(openH + rowH * (LOG_VISIBLE - 1)) + 'px';
+      scroller.classList.add('is-clipped');
+      syncCtrl();
+    }
+    function syncCtrl(){
+      upBtn.disabled = scroller.scrollTop <= 1;
+      downBtn.disabled = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 1;
+    }
+    scroller.addEventListener('scroll', syncCtrl, {passive:true});
+    function nudge(dir){ scroller.scrollBy({top: dir * Math.max(80, scroller.clientHeight * 0.5), behavior: reduceMotion ? 'auto' : 'smooth'}); }
+    upBtn.addEventListener('click', function(){ nudge(-1); });
+    downBtn.addEventListener('click', function(){ nudge(1); });
+    window.addEventListener('resize', function(){ fit(); });
+    if(window.ResizeObserver){ new ResizeObserver(function(){ syncCtrl(); }).observe(list); }
+
+    select(0, false);
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fit); }
 
     function openBox(v, opener){
       lastFocus = opener;
       body.textContent = '';
-      body.classList.toggle('is-tall', v.ratio === 'tall');
-      if(v.type === 'youtube' && /^[\w-]{6,15}$/.test(v.id)){
-        var f = el('iframe');
-        f.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0';
-        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-        f.referrerPolicy = 'strict-origin-when-cross-origin'; f.allowFullscreen = true; f.title = v.title || 'Video';
-        body.appendChild(f);
-        var yt = el('a', 'lightbox__yt'); yt.href = 'https://www.youtube.com/watch?v=' + v.id; yt.target = '_blank'; yt.rel = 'noopener'; yt.textContent = 'Watch on YouTube \u2197';
-        body.appendChild(yt);
-      } else if(v.type === 'video' && v.src){
-        var vd = el('video'); vd.src = v.src; vd.controls = true; vd.autoplay = true; vd.playsInline = true;
-        body.appendChild(vd);
-      } else { return; }
+      body.classList.remove('is-tall');
+      var f = el('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.referrerPolicy = 'strict-origin-when-cross-origin'; f.allowFullscreen = true; f.title = v.title || 'Video';
+      body.appendChild(f);
+      var yt = el('a', 'lightbox__yt'); yt.href = 'https://www.youtube.com/watch?v=' + v.id; yt.target = '_blank'; yt.rel = 'noopener'; yt.textContent = 'Watch on YouTube \u2197';
+      body.appendChild(yt);
       box.classList.add('open');
       closeBtn.focus();
     }
@@ -671,10 +760,6 @@
     closeBtn.addEventListener('click', closeBox);
     box.addEventListener('click', function(e){ if(e.target === box){ closeBox(); } });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeBox(); } });
-
-    function step(dir){ strip.scrollBy({left: dir * strip.clientWidth * 0.8, behavior: reduceMotion ? 'auto' : 'smooth'}); }
-    document.getElementById('reelPrev').addEventListener('click', function(){ step(-1); });
-    document.getElementById('reelNext').addEventListener('click', function(){ step(1); });
   })();
 
   document.querySelectorAll('.image-set').forEach(function(setEl){
@@ -796,7 +881,7 @@
     scrollTrigger:{trigger:'.journey', start:'top 60%', end:'bottom 85%', scrub:0.6}
   });
 
-  var navMap = {roots:'story', coachello:'work', builds:'projects', toolkit:'toolkit', reel:'reel'};
+  var navMap = {roots:'story', coachello:'work', builds:'projects', toolkit:'toolkit', log:'log'};
   Object.keys(navMap).forEach(function(id){
     var el = document.getElementById(id);
     var link = document.querySelector('[data-nav="' + navMap[id] + '"]');
