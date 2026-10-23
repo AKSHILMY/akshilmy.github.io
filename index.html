@@ -98,6 +98,7 @@
   .scrollcue__line::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:var(--signal);animation:scrollLine 1.9s ease-in-out infinite;}
   @keyframes scrollLine{0%{top:-100%;}60%{top:100%;}100%{top:100%;}}
   @media (prefers-reduced-motion: reduce){ .scrollcue__line::after{animation:none;top:0;} }
+  @media (max-width:820px){ .scrollcue{display:none;} }
 
   /* journey / spine */
   .journey{position:relative;}
@@ -551,7 +552,7 @@
     <div class="log__head">
       <p class="chapter__eyebrow">Day by day</p>
       <h2>Build Log</h2>
-      <p>Short video notes from what I'm trying, building and learning. The latest is open; pick any title to see its entry.</p>
+      <p>Short notes, with a video or photo, on what I'm trying, building and learning. The latest is open; pick any title to read an entry.</p>
     </div>
     <div class="log__bar">
       <span id="logCount"></span>
@@ -614,10 +615,10 @@
   });
 
   // Build Log: add an entry by adding one object to this list (order is by date, newest first).
-  // date: 'YYYY-MM-DD' · id: YouTube video id (omit while a video isn't ready) · tags: optional · note: one or two short lines.
+  // date: 'YYYY-MM-DD' · id: YouTube video id, or img: photo path (e.g. 'images/log/name.jpg', optional alt) instead of a video · tags: optional · note: one or two short lines.
   var logEntries = [
     {date:'2026-10-23', id:'jNQXAC9IVRw', title:'Sample entry: wiring an MCP server into an agent', note:'Placeholder. This is where a short note about the experiment goes: what I tried, what worked, what I would do differently.', tags:['agents','experiment'], sample:true},
-    {date:'2026-10-16', id:'aqz-KE-bpKQ', title:'Sample entry: trying a new tool for a day', note:'Placeholder. Each entry is a video plus a couple of lines, so the log reads like a diary.', tags:['product'], sample:true},
+    {date:'2026-10-16', img:'images/log/sample.svg', alt:'Sample photo placeholder', title:'Sample entry: trying a new tool for a day', note:'Placeholder. An entry can use a photo instead of a video, with a couple of lines of text, so the log reads like a diary.', tags:['product'], sample:true},
     {date:'2026-10-09', id:'eRsGyueVLvQ', title:'Sample entry: small build, quick demo', note:'Placeholder. Replace these with real videos as they are published.', tags:['build'], sample:true},
     {date:'2026-10-02', id:'R6MlUcmOul8', title:'Sample entry: comparing two approaches side by side', note:'Placeholder. A short take on the trade-offs I noticed and which one I would pick.', tags:['experiment'], sample:true},
     {date:'2026-09-25', id:'TLkA0RELQ1g', title:'Sample entry: a weekend prototype', note:'Placeholder. What I set out to build, how far I got, and what is next.', tags:['build','prototype'], sample:true},
@@ -664,10 +665,13 @@
       if(hasVideo){ th.type = 'button'; th.setAttribute('aria-label', 'Play: ' + (v.title || 'video')); }
       if(hasVideo){
         var img = el('img'); img.src = 'https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg'; img.alt = ''; img.loading = 'lazy'; th.appendChild(img);
+      } else if(v.img){
+        var pic = el('img'); pic.src = v.img; pic.alt = v.alt || v.title || ''; pic.loading = 'lazy'; th.appendChild(pic);
       } else {
         var ph = el('div', 'lthumb__ph'); ph.textContent = 'Video coming soon'; th.appendChild(ph);
       }
-      th.appendChild(el('span', 'lthumb__shade')); th.appendChild(el('span', 'lthumb__play'));
+      if(hasVideo || !v.img){ th.appendChild(el('span', 'lthumb__shade')); }
+      th.appendChild(el('span', 'lthumb__play'));
       if(hasVideo){ th.addEventListener('click', function(){ openBox(v, th); }); }
       inner.appendChild(th);
       var bd = el('div', 'entry__body');
